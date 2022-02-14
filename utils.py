@@ -1,5 +1,5 @@
 
-from operations import somme_rationnels,produit_rationnels,produit_polynomes,somme_polynome,produit_scalaire_polynome
+from operations import somme_rationnels,produit_rationnels,produit_polynomes,somme_polynome,produit_scalaire_polynome,ecrire_polynome
 
 def approximation_lagrange(pts):
     #Reprendre les points (pour transformer gérer les entiers et les rationnels)
@@ -11,10 +11,7 @@ def approximation_lagrange(pts):
         
     s_poly = []
     for i in range(len(pts)):
-        #print("Pour i = ",i)
         stock = produit_scalaire_polynome(pts[i][1],[[1,1]])
-        #print("stock",stock)
-        #print("")
         for k in range(len(pts)):
             if i != k:
                 coef_constant = somme_rationnels(pts[k][0],[-pts[i][0][0],pts[i][0][1]])
@@ -24,6 +21,36 @@ def approximation_lagrange(pts):
                 stock = produit_polynomes(stock,[ coef_constant,coef_dominant ])
         s_poly = somme_polynome(s_poly,stock)
     return s_poly
+
+
+#Je défini les points de controle
+points = [[-2,2],[-1,0],[0,-1],[1,-1],[2,0],[4,-3]]
+
+#Je récupère les coefficients du polynome.
+"""
+Le format sous lequel on récupère nos valeurs est une liste de coefficients (du plus petit au plus grand).
+Les coefficients sont exprimés sous la forme de liste de deux éléments.
+Le premier élément c'est le numérateur.
+Le second, c'est le dénominateur.
+
+Par exemple, [[1,1],[2,1]] représente 2x+1.
+"""
+appox = approximation_lagrange(points)
+print(ecrire_polynome(appox))
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
 
 
 
